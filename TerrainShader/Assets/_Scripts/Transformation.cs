@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transformation : MonoBehaviour
+public abstract class Transformation : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public abstract Matrix4x4 Matrix { get; }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 Apply(Vector3 point)
     {
-        
+        return Matrix.MultiplyPoint(point);
     }
 }
