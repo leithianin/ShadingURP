@@ -12,7 +12,7 @@ public class HexGrid : MonoBehaviour
     public Color touchedColor = Color.magenta;
 
     public HexCell cellPrefab;
-    public Text cellLabelPrefab;
+    //public Text cellLabelPrefab;
 
     Canvas gridCanvas;
     HexMesh hexMesh;
@@ -81,10 +81,10 @@ public class HexGrid : MonoBehaviour
             }
         }
 
-        Text label = Instantiate<Text>(cellLabelPrefab);
+        /*Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = cell.coordinates.ToStringInColumn();
+        label.text = cell.coordinates.ToStringInColumn();*/
     }
 
     public void ColorCell(Vector3 position, Color color)

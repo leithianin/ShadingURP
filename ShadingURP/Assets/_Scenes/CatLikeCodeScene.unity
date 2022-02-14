@@ -1633,7 +1633,6 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   touchedColor: {r: 1, g: 0, b: 1, a: 1}
   cellPrefab: {fileID: 1971036297208671295, guid: 05b48d9335482074f9b6ef549f2d3f90, type: 3}
-  cellLabelPrefab: {fileID: 5916854634712704284, guid: 3802b0bd5cec38c49b9ea27820b3f004, type: 3}
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
