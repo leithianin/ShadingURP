@@ -12,7 +12,6 @@ public class HexGrid : MonoBehaviour
     public Color touchedColor = Color.magenta;
 
     public HexCell cellPrefab;
-    //public Text cellLabelPrefab;
 
     Canvas gridCanvas;
     HexMesh hexMesh;
@@ -80,21 +79,20 @@ public class HexGrid : MonoBehaviour
                 }
             }
         }
-
-        /*Text label = Instantiate<Text>(cellLabelPrefab);
-        label.rectTransform.SetParent(gridCanvas.transform, false);
-        label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = cell.coordinates.ToStringInColumn();*/
     }
 
-    public void ColorCell(Vector3 position, Color color)
+    public HexCell GetCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
 
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        HexCell cell = cells[index];
-        cell.color = color;
+
+        return cells[index];
+    }
+
+    public void Refresh()
+    {
         hexMesh.Triangulate(cells);
     }
 }
