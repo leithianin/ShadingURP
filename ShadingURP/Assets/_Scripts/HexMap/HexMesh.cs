@@ -78,7 +78,15 @@ public class HexMesh : MonoBehaviour
         Vector3 v4 = v2 + bridge;
         v3.y = v4.y = neighbour.Elevation * HexMetrics.elevationStep;
 
-        TriangulateEdgeTerraces(v1, v2, cell, v3, v4, neighbour);
+        if(cell.GetEdgeType(direction) == HexEdgeType.Slope)
+        {
+            TriangulateEdgeTerraces(v1, v2, cell, v3, v4, neighbour);
+        }
+        else
+        {
+            AddQuad(v1, v2, v3, v4);
+            AddQuadColor(cell.color, neighbour.color);
+        }
 
         HexCell nextNeighbour = cell.GetNeighbour(direction.Next());
 
