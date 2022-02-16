@@ -160,6 +160,7 @@ Shader "Universal Render Pipeline/Custom/Physically Based Example"
                 float4 tangentOS    : TANGENT;
                 float2 uv           : TEXCOORD0;
                 float2 uvLM         : TEXCOORD1;
+                float4 color        : COLOR;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
@@ -179,6 +180,8 @@ Shader "Universal Render Pipeline/Custom/Physically Based Example"
                 float4 shadowCoord              : TEXCOORD6; // compute shadow coord per-vertex for the main light
 #endif
                 float4 positionCS               : SV_POSITION;
+
+                float4 color                    : COLOR;
             };
 
             Varyings LitPassVertex(Attributes input)
@@ -308,7 +311,7 @@ Shader "Universal Render Pipeline/Custom/Physically Based Example"
                 // Mix the pixel color with fogColor. You can optionaly use MixFogColor to override the fogColor
                 // with a custom one.
                 color = MixFog(color, fogFactor);
-                return half4(color, surfaceData.alpha);
+                return half4(color, surfaceData.alpha) * input.color;
             }
             ENDHLSL
         }
