@@ -33,6 +33,8 @@ public static class HexMetrics
     public const float noiseScale = .003f;
     public const float elevationPerturbStrength = 1.5f;
 
+    public const int chunkSizeX = 5, chunkSizeZ = 5;
+
     public static Vector3 GetFirstCorner(HexDirection direction)
     {
         return corners[(int)direction];

@@ -5,9 +5,10 @@ using UnityEngine;
 public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
-    public Color color;
 
     [SerializeField] HexCell[] neighbours;
+
+    public HexGridChunk chunk;
 
     public Vector3 Position
     {
@@ -18,17 +19,34 @@ public class HexCell : MonoBehaviour
     {
         get { return elevation; }
         set 
-        { 
+        {
+            if (elevation == value) return;
+
             elevation = value;
 
             Vector3 position = transform.localPosition;
             position.y = value * HexMetrics.elevationStep;
             position.y += (HexMetrics.SampleNoise(position).y * 2f - 1f) * HexMetrics.elevationPerturbStrength;
             transform.localPosition = position;
+
+            Refresh();
         }
     }
 
-    int elevation;
+    public Color Color
+    {
+        get { return color; }
+        set
+        {
+            if (color == value) return;
+
+            color = value;
+            Refresh();
+        }
+    }
+
+    int elevation = int.MinValue;
+    Color color;
 
     public HexCell GetNeighbour (HexDirection direction)
     {
@@ -49,5 +67,20 @@ public class HexCell : MonoBehaviour
     public HexEdgeType GetEdgeType(HexCell otherCell)
     {
         return HexMetrics.GetEdgeType(elevation, otherCell.elevation);
+    }
+
+    void Refresh()
+    {
+        if (chunk) { chunk.Refresh(); }
+
+        for (int i = 0; i < neighbours.Length; i++)
+        {
+            HexCell neighbour = neighbours[i];
+
+            if(neighbour != null && neighbour.chunk != chunk)
+            {
+                neighbour.chunk.Refresh();
+            }
+        }
     }
 }
