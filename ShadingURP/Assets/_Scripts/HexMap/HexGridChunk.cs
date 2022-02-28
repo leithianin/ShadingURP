@@ -7,11 +7,10 @@ public class HexGridChunk : MonoBehaviour
 {
     HexCell[] cells;
 
-    HexMesh hexMesh;
+    public HexMesh terrain;
 
     private void Awake()
     {
-        hexMesh = GetComponentInChildren<HexMesh>();
         cells = new HexCell[HexMetrics.chunkSizeX * HexMetrics.chunkSizeZ];
     }
 
@@ -29,7 +28,19 @@ public class HexGridChunk : MonoBehaviour
 
     private void LateUpdate()
     {
-        hexMesh.Triangulate(cells);
+        Triangulate();
         enabled = false;
+    }
+
+    public void Triangulate()
+    {
+        terrain.Clear();
+
+        for (int i = 0; i < cells.Length; i++)
+        {
+            //Triangulate(cells[i]);
+        }
+
+        terrain.Apply();
     }
 }
