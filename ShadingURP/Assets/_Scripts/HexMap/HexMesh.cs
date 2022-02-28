@@ -77,7 +77,7 @@ public class HexMesh : MonoBehaviour
         EdgeVertices e2 = new EdgeVertices
         (
             e1.v1 + bridge,
-            e1.v4 + bridge
+            e1.v5 + bridge
         );
 
         if(cell.GetEdgeType(direction) == HexEdgeType.Slope)
@@ -93,27 +93,27 @@ public class HexMesh : MonoBehaviour
 
         if(direction <= HexDirection.E && nextNeighbour != null)
         {
-            Vector3 v5 = e1.v4 + HexMetrics.GetBridge(direction.Next());
+            Vector3 v5 = e1.v5 + HexMetrics.GetBridge(direction.Next());
             v5.y = nextNeighbour.Position.y;
 
             if(cell.Elevation <= neighbour.Elevation)
             {
                 if(cell.Elevation <= nextNeighbour.Elevation)
                 {
-                    TriangulateCorner(e1.v4, cell, e2.v4, neighbour, v5, nextNeighbour);
+                    TriangulateCorner(e1.v5, cell, e2.v5, neighbour, v5, nextNeighbour);
                 }
                 else
                 {
-                    TriangulateCorner(v5, nextNeighbour, e1.v4, cell, e2.v4, neighbour);
+                    TriangulateCorner(v5, nextNeighbour, e1.v5, cell, e2.v5, neighbour);
                 }
             }
             else if(neighbour.Elevation <= nextNeighbour.Elevation)
             {
-                TriangulateCorner(e2.v4, neighbour, v5, nextNeighbour, e1.v4, cell);
+                TriangulateCorner(e2.v5, neighbour, v5, nextNeighbour, e1.v5, cell);
             }
             else
             {
-                TriangulateCorner(v5, nextNeighbour, e1.v4, cell, e2.v4, neighbour);
+                TriangulateCorner(v5, nextNeighbour, e1.v5, cell, e2.v5, neighbour);
             }
         }
     }
@@ -294,6 +294,8 @@ public class HexMesh : MonoBehaviour
         AddTriangleColor(color);
         AddTriangle(center, edge.v3, edge.v4);
         AddTriangleColor(color);
+        AddTriangle(center, edge.v4, edge.v5);
+        AddTriangleColor(color);
     }
 
     void TriangulateEdgeStrip(EdgeVertices e1, Color c1, EdgeVertices e2, Color c2)
@@ -303,6 +305,8 @@ public class HexMesh : MonoBehaviour
         AddQuad(e1.v2, e1.v3, e2.v2, e2.v3);
         AddQuadColor(c1, c2);
         AddQuad(e1.v3, e1.v4, e2.v3, e2.v4);
+        AddQuadColor(c1, c2);
+        AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
         AddQuadColor(c1, c2);
     }
 
