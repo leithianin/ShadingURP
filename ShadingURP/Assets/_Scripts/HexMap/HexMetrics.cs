@@ -38,6 +38,7 @@ public static class HexMetrics
     public const int chunkSizeX = 5, chunkSizeZ = 5;
 
     public const float streamBedElevationOffset = -1f;
+    public const float riverSurfaceElevationOffset = -0.5f;
 
     public static Vector3 GetFirstCorner(HexDirection direction)
     {
